@@ -1,2 +1,3 @@
 # dotfiles
-dotfiles for Manjaro Linux.
+
+This simply contains my dotfiles for Linux customisation.
