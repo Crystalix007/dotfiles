@@ -41,7 +41,18 @@ filetype plugin indent on    " required
 " :PluginList       - lists configured plugins
 " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
 " :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+" :PluginClgsForFile( filename, **kwargs ):
+"     if (filename[:-2] == ".c"):
+"             return {
+"                     'flags' : [ '-x', 'c', '-Wall', '-Wextra', '-Werror' ],
+"                             }
+"                                 else:
+"                                         return {
+"                                                 'flags': [ '-x', 'c++',
+"                                                 '-std=c++14', '-Wall',
+"                                                 '-Wextra', '-Werror' ],
+"                                                         }
+"                                                         ean      - confirms  of unused plugins; append `!` to auto-approve removal
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
@@ -53,3 +64,5 @@ set number
 syntax on
 
 let g:ycm_global_ycm_extra_conf = '/home/michaelkuc6/.ycm_global_extra_conf.py'
+nnoremap <silent> \ :let @/ = ""<return> 
+set hlsearch!
