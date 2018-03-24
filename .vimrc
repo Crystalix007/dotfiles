@@ -13,6 +13,7 @@ Plugin 'bfrg/vim-cpp-modern'
 Plugin 'valloric/YouCompleteMe'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'othree/eregex.vim'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
