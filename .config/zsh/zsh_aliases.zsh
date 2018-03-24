@@ -1,1 +1,1 @@
-/home/michaelkuc6/.config/zsh/zsh_aliases.zsh
+alias mirrors='sudo pacman-mirrors --fasttrack && sudo pacman -Syy'

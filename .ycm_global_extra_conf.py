@@ -1,1 +1,4 @@
-/home/michaelkuc6/.ycm_global_extra_conf.py
+def FlagsForFile( filename, **kwargs ):
+  return {
+    'flags': [ '-x', 'c++', '-std=c++14', '-Wall', '-Wextra', '-Werror' ],
+  }
