@@ -1,0 +1,1 @@
+/home/michaelkuc6/.ycm_global_extra_conf.py

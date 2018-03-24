@@ -1,0 +1,1 @@
+/home/michaelkuc6/.config/zsh/zsh_aliases.zsh
