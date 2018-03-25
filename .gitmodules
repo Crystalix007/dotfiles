@@ -1,3 +1,6 @@
 [submodule "dwm"]
 	path = dwm
 	url = https://github.com/Crystalix007/dwm
+[submodule "notify-send.sh"]
+	path = notify-send
+	url = https://github.com/vlevit/notify-send.sh.git
