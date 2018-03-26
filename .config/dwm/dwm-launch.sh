@@ -1,6 +1,12 @@
-#!/bin/sh
+#!/bin/zsh
 compton --backend glx --paint-on-overlay --glx-no-stencil --vsync opengl-swc --unredir-if-possible &
 export QT_QPA_PLATFORMTHEME="qt5ct"
 # Log stderror to a file
-dwm 2> ~/.dwm.log
+
+count=0
+while dwm 2> ~/.dwm.log ; [ $? -eq 1 ]
+do
+	let count += 1
+	~/script/notify-send.sh --replace-file=/tmp/dwm-restart-notification "dwm restarted" "dwm has been restarted $count times"
+done
 killall compton
