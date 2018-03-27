@@ -6,7 +6,7 @@ export QT_QPA_PLATFORMTHEME="qt5ct"
 count=0
 while dwm 2> ~/.dwm.log ; [ $? -eq 1 ]
 do
-	let count += 1
-	~/script/notify-send.sh --replace-file=/tmp/dwm-restart-notification "dwm restarted" "dwm has been restarted $count times"
+	let count+=1
+	~/script/notify-send.sh --replace-file=/tmp/dwm-restart-notification "dwm restarted" "dwm has been restarted $count times" &
 done
 killall compton
