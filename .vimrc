@@ -67,3 +67,5 @@ syntax on
 let g:ycm_global_ycm_extra_conf = '/home/michaelkuc6/.ycm_global_extra_conf.py'
 nnoremap <silent> \ :let @/ = ""<return> 
 set hlsearch!
+
+set clipboard=unnamedplus
