@@ -6,4 +6,4 @@
 	url = https://github.com/vlevit/notify-send.sh.git
 [submodule "usr/share/sddm/themes/clairvoyance"]
 	path = usr/share/sddm/themes/clairvoyance
-	url = https://github.com/Eayu/sddm-theme-clairvoyance.git
+	url = https://github.com/Crystalix007/sddm-theme-clairvoyance.git
