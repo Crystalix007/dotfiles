@@ -7,3 +7,6 @@
 [submodule "usr/share/sddm/themes/clairvoyance"]
 	path = usr/share/sddm/themes/clairvoyance
 	url = https://github.com/Crystalix007/sddm-theme-clairvoyance.git
+[submodule "slstatus"]
+	path = slstatus
+	url = https://github.com/Crystalix007/slstatus.git
