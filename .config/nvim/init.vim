@@ -1,3 +1,5 @@
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
+
 call plug#begin()
 
 if has('nvim')
