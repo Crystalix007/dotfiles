@@ -16,5 +16,3 @@ call plug#end()
 let g:deoplete#enable_at_startup = 1
 " deoplete tab-complete
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-noremap <C-V> "+p
-noremap <C-C> "+y
