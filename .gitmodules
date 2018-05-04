@@ -1,12 +1,12 @@
 [submodule "dwm"]
 	path = dwm
-	url = https://michaelkuc6%40gmail.com@github.com/Crystalix007/dwm
+	url = https://github.com/Crystalix007/dwm
 [submodule "notify-send.sh"]
 	path = notify-send
 	url = https://github.com/vlevit/notify-send.sh.git
 [submodule "usr/share/sddm/themes/clairvoyance"]
 	path = usr/share/sddm/themes/clairvoyance
-	url = https://michaelkuc6%40gmail.com@github.com/Crystalix007/sddm-theme-clairvoyance.git
+	url = https://github.com/Crystalix007/sddm-theme-clairvoyance.git
 [submodule "slstatus"]
 	path = slstatus
-	url = https://michaelkuc6%40gmail.com@github.com/Crystalix007/slstatus.git
+	url = https://github.com/Crystalix007/slstatus.git
