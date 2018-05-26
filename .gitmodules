@@ -10,3 +10,6 @@
 [submodule "slstatus"]
 	path = slstatus
 	url = https://github.com/Crystalix007/slstatus.git
+[submodule "configui"]
+	path = configui
+	url = ./configui
