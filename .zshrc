@@ -80,10 +80,9 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
+  export EDITOR='nvim'
 else
-# export EDITOR='nvim'
-  export EDITOR='vim'
+  export EDITOR='nvim'
 fi
 
 # Compilation flags
@@ -105,3 +104,8 @@ fi
 if [[ -f ~/.config/zsh/zsh_aliases.zsh ]]; then
   source ~/.config/zsh/zsh_aliases.zsh
 fi
+
+# Powerlevel9k prompt shorten context
+export POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
+export POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
+export POWERLEVEL9K_SHORTEN_DELIMITER=""
