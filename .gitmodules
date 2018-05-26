@@ -12,4 +12,4 @@
 	url = https://github.com/Crystalix007/slstatus.git
 [submodule "configui"]
 	path = configui
-	url = ./configui
+	url = https://github.com/Crystalix007/ConfiGUI.git
