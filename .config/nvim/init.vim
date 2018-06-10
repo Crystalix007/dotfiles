@@ -15,4 +15,11 @@ call plug#end()
 
 let g:deoplete#enable_at_startup = 1
 " deoplete tab-complete
+
+set tabstop=4       " number of visual spaces per TAB
+set softtabstop=4   " number of spaces in tab when editing
+set shiftwidth=4    " number of spaces to use for autoindent
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
+let g:airline_powerline_fonts = 1
+let g:airline_extensions = []
