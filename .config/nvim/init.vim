@@ -11,6 +11,14 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
+Plug 'uplus/vim-clang-rename'
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+nnoremap <c-p> :FZF<cr>
+
+Plug 'junegunn/vim-peekaboo'
+
 call plug#end()
 
 let g:deoplete#enable_at_startup = 1
