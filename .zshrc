@@ -3,10 +3,7 @@
 source ~/.profile
 
 # Path to your oh-my-zsh installation.
-export ZSH=~/.oh-my-zsh
-
-# Add fish-like autocomplete
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+# export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -14,7 +11,7 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 # ZSH_THEME="powerline/powerline"
 
 # Import powerline package
-source /usr/share/zsh-theme-powerlevel9k/powerlevel9k.zsh-theme
+# source /usr/share/zsh-theme-powerlevel9k/powerlevel9k.zsh-theme
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -53,32 +50,25 @@ source /usr/share/zsh-theme-powerlevel9k/powerlevel9k.zsh-theme
 # much, much faster.
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
+# plugins=(
 # git
-)
+# )
 
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 
 # Source Prezto.
-# if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-#   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-# fi
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
 
 # User configuration
 
-# export MANPATH="/usr/local/man:$MANPATH"
+# Add fish-like autocomplete
+# source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -92,15 +82,6 @@ export EDITOR='nvim'
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
 # Alias from file
 if [[ -f ~/.config/zsh/zsh_aliases.zsh ]]; then
   source ~/.config/zsh/zsh_aliases.zsh
@@ -112,3 +93,15 @@ export POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
 export POWERLEVEL9K_SHORTEN_DELIMITER=""
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Use VI mode
+bindkey -v
+export KEYTIMEOUT=1
+
+pwd_login() {
+	if [ $# -ne 1 ]; then
+		printf "Invalid usage.\nUsage: pwd_login <character index sequence>\n"
+	else
+		read -s P; echo $P | cut -c "$1"; unset P
+	fi
+}
