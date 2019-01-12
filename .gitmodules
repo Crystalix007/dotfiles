@@ -13,6 +13,8 @@
 [submodule "configui"]
 	path = configui
 	url = https://github.com/Crystalix007/ConfiGUI.git
+	ignore = untracked
 [submodule "ksetwallpaper"]
 	path = ksetwallpaper
 	url = https://github.com/Crystalix007/ksetwallpaper.git
+	ignore = untracked
