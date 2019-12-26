@@ -1,0 +1,31 @@
+[core]
+	autocrlf = input
+[credential]
+	helper = cache
+[alias]
+	serve = daemon --verbose --export-all --base-path=. --reuseaddr --enable=receive-pack
+	st = status
+	get = fetch
+	co = checkout
+	mf = merge
+	msg = log --format=%B -n 1
+	orphans = !git log --pretty=oneline --abbrev-commit --graph --decorate $(git reflog --format=format:%h)
+	p = push
+	f = fetch
+	b = branch
+	lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all
+	skip = update-index --skip-worktree
+	recommit = !git commit -eF $(git rev-parse --git-dir)/COMMIT_EDITMSG
+[color]
+	ui = auto
+[rebase]
+	instructionFormat = %s [%an]
+[rerere]
+	enabled = true
+	autoupdate = true
+[diff]
+	algorithm = patience
+[color "diff"]
+	whitespace = red reverse
+[commit]
+	gpgsign = true
