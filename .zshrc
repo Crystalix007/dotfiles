@@ -2,6 +2,11 @@ if [ -f ~/.profile ]; then
 	source ~/.profile
 fi
 
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+	source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
 # Path to your oh-my-zsh installation.
 # export ZSH=~/.oh-my-zsh
 
@@ -93,6 +98,7 @@ export POWERLEVEL9K_SHORTEN_DELIMITER=""
 bindkey -v
 export KEYTIMEOUT=1
 bindkey '^[^M' self-insert-unmeta
+bindkey '^ ' forward-word
 
 hash -d music=/mnt/Programs/Music/
 hash -d android=~/mnt/Android
@@ -128,10 +134,11 @@ unar() {
 }
 
 meta() {
-	tmp_file=$(mktemp)
+	mustache_data="filename: \"${1:r}\""
+	tmp_file="$(mktemp)"
 
 	if (( $# < 1 )); then
-		cat ~/Templates/meta.txt >! "${tmp_file}"
+		printf "${mustache_data}" | mustache - ~/Templates/meta.txt >! "${tmp_file}"
 		vim "${tmp_file}"
 		printf "${tmp_file}" | xclip -in
 	elif [[ -f "$1" ]]; then
@@ -139,14 +146,14 @@ meta() {
 
 		for line in $(cat ~/Templates/meta.txt); do
 			search_line=$(printf "${line}" | sed -Ee 's/^[^a-zA-Z_]*([a-zA-Z_]+\=).*$/\1/')
-			grep -i -q -e "${search_line}" "${tmp_file}" || printf "${line}\n" >> "${tmp_file}"
+			grep -i -q -e "${search_line}" "${tmp_file}" || (printf "${mustache_data}" | mustache - <(printf "${line}\n") >> "${tmp_file}")
 		done
 
 		MOD_TIME=$(stat -c %Z "${tmp_file}")
 		$EDITOR "${tmp_file}"
 
 		if (( ${MOD_TIME} != $(stat -c %Z "${tmp_file}") )); then
-			ffmpeg -i "$1" -f ffmetadata -i "${tmp_file}" -c copy -map_metadata 1 "${1:r}.meta.${1:e}" 2>/dev/null
+			ffmpeg -y -i "$1" -f ffmetadata -i "${tmp_file}" -c copy -map_metadata 1 "${1:r}.meta.${1:e}" 2>/dev/null
 		fi
 	else
 		printf "Invalid file\n"
@@ -197,8 +204,6 @@ PERL5LIB="/home/michaelkuc6/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PE
 PERL_LOCAL_LIB_ROOT="/home/michaelkuc6/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/home/michaelkuc6/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/michaelkuc6/perl5"; export PERL_MM_OPT;
-
-bindkey '^ ' forward-word
 
 function internetperf() {
 	curl -o /dev/null -sS -w "Connect: %{time_connect}s + TTFB: %{time_starttransfer}s = Total: %{time_total}s\n" "$1"
@@ -378,8 +383,3 @@ function ffstrip() {
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-	source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
