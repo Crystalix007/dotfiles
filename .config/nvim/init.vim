@@ -15,7 +15,6 @@ call plug#begin('~/.vim/plugged')
 	Plug 'tpope/vim-eunuch'
 	Plug 'tpope/vim-fugitive'
 	Plug 'rbong/vim-flog'
-	Plug 'tpope/vim-unimpaired'
 	Plug 'peterhoeg/vim-qml'
 	Plug 'rhysd/vim-clang-format'
 	Plug 'vim-scripts/LargeFile'
@@ -33,6 +32,8 @@ call plug#begin('~/.vim/plugged')
 	Plug 'svermeulen/vim-subversive'
 	Plug 'othree/eregex.vim'
 	Plug 'dhruvasagar/vim-table-mode'
+	Plug 'psliwka/vim-smoothie'
+	Plug 'junegunn/vim-peekaboo'
 
 	Plug 'iamcco/mathjax-support-for-mkdp'
 	Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
@@ -236,7 +237,7 @@ set cmdheight=2
 " To search with PCRE, use ':M/'
 let g:eregex_default_enable = 0
 nnoremap <leader>/ :call eregex#toggle()<CR>
-nnoremap <silent> "" :registers "0123456789abcdefghijklmnopqrstuvwxyz*+.<CR>
+" nnoremap <silent> "" :registers "0123456789abcdefghijklmnopqrstuvwxyz*+.<CR>
 
 command! -nargs=0 ShowTrailingWhitespace /\s\+$
 
@@ -279,7 +280,7 @@ nvim_lsp.ccls.setup({})
 nvim_lsp.hie.setup({})
 EOF
 
-autocmd Filetype rust,python,go,c,cpp,haskell setl omnifunc=v:lua.vim.lsp.omnifunc
+autocmd Filetype c,cpp,haskell setl omnifunc=v:lua.vim.lsp.omnifunc
 nnoremap <silent> ;dc <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> ;df <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> ;h  <cmd>lua vim.lsp.buf.hover()<CR>
