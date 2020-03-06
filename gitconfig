@@ -1,5 +1,8 @@
 [core]
 	autocrlf = input
+[user]
+	email = michaelkuc6@gmail.com
+	name = Michael Kuc
 [credential]
 	helper = cache
 [alias]

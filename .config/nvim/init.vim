@@ -2,7 +2,9 @@ let mapleader = "\<Space>"
 
 call plug#begin('~/.vim/plugged')
 
-	Plug 'jackguo380/vim-lsp-cxx-highlight', { 'highlight': { 'lsRanges' : v:true }, }
+	" Plug 'jackguo380/vim-lsp-cxx-highlight', { 'highlight': { 'lsRanges' : v:true }, }
+	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+	Plug 'Shougo/deoplete-lsp'
 	Plug 'Shougo/denite.nvim'
 	Plug 'Shougo/echodoc.vim'
 	Plug 'junegunn/vim-easy-align'
@@ -34,6 +36,8 @@ call plug#begin('~/.vim/plugged')
 	Plug 'dhruvasagar/vim-table-mode'
 	Plug 'psliwka/vim-smoothie'
 	Plug 'junegunn/vim-peekaboo'
+	Plug 'Chiel92/vim-autoformat'
+	Plug 'Shirk/vim-gas'
 
 	Plug 'iamcco/mathjax-support-for-mkdp'
 	Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
@@ -51,6 +55,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'inkarkat/vim-ingo-library'
 	Plug 'inkarkat/vim-ArgsAndMore'
 	Plug 'christoomey/vim-conflicted'
+	Plug 'vim-scripts/DoxygenToolkit.vim'
 
 	let lex_uses_cpp=1
 	let yacc_uses_cpp=1
@@ -89,6 +94,9 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#branch#format = 2
 
+let g:deoplete#enable_at_startup = 1
+let g:neosnippet#enable_completed_snippet = 1
+
 set stl+=%{ConflictedVersion()}
 
 set undodir=~/.cache/neovim/undodir
@@ -114,13 +122,25 @@ set notimeout
 set completeopt=noinsert,menuone,noselect
 set concealcursor=n
 set showbreak=↲
+set spellfile+=~/.config/nvim/spell/en.utf-8.add
+set spellfile+=./oneoff.utf-8.add
 
 " Required for operations modifying multiple buffers like rename.
 set hidden
 inoremap <expr><C-Space> pumvisible() ? "\<C-n>" : "\<C-g>u\<C-x>\<C-o>"
-inoremap <expr><tab> pumvisible() ? "\<C-n>" : "\<tab>"
-inoremap <expr><S-tab> pumvisible() ? "\<C-p>" : "\<S-tab>"
 inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+function! s:neosnippet_complete()
+  if neosnippet#expandable_or_jumpable()
+    return "\<Plug>(neosnippet_expand_or_jump)"
+	elseif pumvisible()
+    return "\<C-y>"
+  else
+    return "\<Tab>"
+  endif
+endfunction
+
+imap <expr><TAB> <SID>neosnippet_complete()
 
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
@@ -146,6 +166,10 @@ augroup END
 
 augroup haskell_indentation
 	au! FileType haskell set expandtab
+augroup END
+
+augroup assembly
+	au! BufNewFile,BufFilePre,BufRead *.s set filetype=gas
 augroup END
 
 let g:pandoc#syntax#conceal#use = 1
@@ -242,7 +266,7 @@ nnoremap <leader>/ :call eregex#toggle()<CR>
 command! -nargs=0 ShowTrailingWhitespace /\s\+$
 
 nnoremap <Leader>cf :ClangFormat<CR>
-vnoremap = :ClangFormat<CR>
+" vnoremap = :ClangFormat<CR>
 set listchars=eol:$,tab:↣·,trail:~,extends:>,precedes:>
 
 nmap <c-n> <plug>(YoinkPostPasteSwapBack)
@@ -273,14 +297,15 @@ nnoremap =p ]p
 nnoremap <leader>t :TrimWhitespace<CR>
 nnoremap <leader>bn :bn<CR>
 nnoremap <leader>bp :bp<CR>
+cnoremap w!! execute 'silent! write !SUDO_ASKPASS=`which ssh-askpass` sudo tee % >/dev/null' <bar> edit!
 
+lua vim.lsp.set_log_level("debug")
 lua << EOF
 local nvim_lsp = require 'nvim_lsp'
-nvim_lsp.ccls.setup({})
-nvim_lsp.hie.setup({})
+nvim_lsp.ccls.setup{}
 EOF
 
-autocmd Filetype c,cpp,haskell setl omnifunc=v:lua.vim.lsp.omnifunc
+autocmd Filetype c,cpp,haskell,go setl omnifunc=v:lua.vim.lsp.omnifunc
 nnoremap <silent> ;dc <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> ;df <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> ;h  <cmd>lua vim.lsp.buf.hover()<CR>
@@ -288,6 +313,7 @@ nnoremap <silent> ;i  <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent> ;s  <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> ;td <cmd>lua vim.lsp.buf.type_definition()<CR>
 
+" let g:doge_clang_args = [ '--std', 'c++17' ]
 let g:doge_mapping_comment_jump_forward='<C-j>'
 
 " Ignore stupid paging operations
