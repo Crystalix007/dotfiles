@@ -17,6 +17,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'tpope/vim-eunuch'
 	Plug 'tpope/vim-fugitive'
 	Plug 'rbong/vim-flog'
+	Plug 'tpope/vim-unimpaired'
 	Plug 'peterhoeg/vim-qml'
 	Plug 'rhysd/vim-clang-format'
 	Plug 'vim-scripts/LargeFile'
@@ -37,8 +38,13 @@ call plug#begin('~/.vim/plugged')
 	Plug 'psliwka/vim-smoothie'
 	Plug 'junegunn/vim-peekaboo'
 	Plug 'Chiel92/vim-autoformat'
+	Plug 'chrisbra/Colorizer'
+	Plug 'dylon/vim-antlr'
+	Plug 'jreybert/vimagit'
 	Plug 'Shirk/vim-gas'
 
+	Plug 'vim-pandoc/vim-pandoc'
+	Plug 'vim-pandoc/vim-pandoc-syntax'
 	Plug 'iamcco/mathjax-support-for-mkdp'
 	Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 
@@ -105,6 +111,8 @@ set backup
 set backupdir=~/.cache/neovim/backup
 set writebackup
 set backupcopy=yes
+set concealcursor=n
+set autoread
 
 set updatetime=100
 
@@ -122,12 +130,15 @@ set notimeout
 set completeopt=noinsert,menuone,noselect
 set concealcursor=n
 set showbreak=↲
+
 set spellfile+=~/.config/nvim/spell/en.utf-8.add
 set spellfile+=./oneoff.utf-8.add
 
 " Required for operations modifying multiple buffers like rename.
 set hidden
 inoremap <expr><C-Space> pumvisible() ? "\<C-n>" : "\<C-g>u\<C-x>\<C-o>"
+inoremap <expr><tab> pumvisible() ? "\<C-n>" : "\<tab>"
+inoremap <expr><S-tab> pumvisible() ? "\<C-p>" : "\<S-tab>"
 inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 function! s:neosnippet_complete()
@@ -162,6 +173,7 @@ let g:airline_powerline_fonts = 1
 augroup pandoc_syntax
 	au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
 	au	BufNewFile,BufFilePre,BufRead *.md call deoplete#custom#buffer_option('auto_complete', v:false)
+	au BufNewFile,BufFilePre,BufRead *.md set textwidth=80
 augroup END
 
 augroup haskell_indentation
@@ -224,7 +236,7 @@ endfun
 command! TrimWhitespace call TrimWhitespace()
 
 nmap <leader>e :Ag<CR>
-nmap <C-e> :GFiles<CR>
+nmap <leader>g :GFiles<CR>
 
 func! WordProcessorMode()
 	" Load Markdown syntax highlighting but with custom hashtag support
@@ -261,7 +273,6 @@ set cmdheight=2
 " To search with PCRE, use ':M/'
 let g:eregex_default_enable = 0
 nnoremap <leader>/ :call eregex#toggle()<CR>
-" nnoremap <silent> "" :registers "0123456789abcdefghijklmnopqrstuvwxyz*+.<CR>
 
 command! -nargs=0 ShowTrailingWhitespace /\s\+$
 
@@ -299,10 +310,10 @@ nnoremap <leader>bn :bn<CR>
 nnoremap <leader>bp :bp<CR>
 cnoremap w!! execute 'silent! write !SUDO_ASKPASS=`which ssh-askpass` sudo tee % >/dev/null' <bar> edit!
 
-lua vim.lsp.set_log_level("debug")
 lua << EOF
 local nvim_lsp = require 'nvim_lsp'
-nvim_lsp.ccls.setup{}
+nvim_lsp.ccls.setup({})
+nvim_lsp.hie.setup({})
 EOF
 
 autocmd Filetype c,cpp,haskell,go setl omnifunc=v:lua.vim.lsp.omnifunc
@@ -326,4 +337,7 @@ nmap <S-A-Up> <Up>
 let g:yoinkIncludeDeleteOperations=1
 let g:yoinkSavePersistently=1
 let g:yoinkMoveCursorToEndOfPaste=1
+
 let g:yoinkSwapClampAtEnds=0
+" Open vimagit pane
+nnoremap <leader>gs :Magit<CR>       " git status
